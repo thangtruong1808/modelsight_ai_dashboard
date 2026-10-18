@@ -1,0 +1,86 @@
+You are a senior frontend engineer with strong UI/UX and data-visualization skills.
+
+## Context
+Build a FRONTEND-ONLY showcase project: an "AI Model Monitoring Dashboard" (SaaS analytics platform) for observing the health, performance, cost, and data quality of machine-learning/LLM models in production. The goal is to demonstrate advanced frontend skills to customers and employers: modern dashboard UI, rich data visualization, complex data tables, state management, UX flows, animation, responsiveness and accessibility.
+
+All data is mock/simulated and lives inside the project. There is NO backend, NO payments, and NO deployment setup needed (do not add Stripe, Vercel config, or serverless functions). Use a FICTIONAL product name and logo and original copy.
+
+If the repo already has a project, inspect it and keep its conventions. If it is empty, scaffold with the latest stable Vite + React + TypeScript (strict mode).
+
+## Working agreement (important)
+- Large project: work in PHASES, one phase per build run.
+- Step 1 is planning only: do not write feature code until I approve the plan.
+- After I approve, implement ONLY the first phase, then STOP. Summarize what was built, how to run and test it, what to check manually, and what the next phase is. Wait for my review and explicit go-ahead before starting the next phase.
+- Never start the next phase on your own. Each phase must end in a working, runnable state (builds, lint passes, no console errors).
+
+## Step 1: Plan (no feature code yet)
+Inspect the repo, then write a phased plan to PHASE.md (follow the format of any existing PHASE.md/plan files): phases, tasks, acceptance criteria, risks, open questions. Each phase must be independently reviewable. Suggested phase outline (adjust if you have a better one):
+- Phase 1: Foundation + design system + app shell (sidebar, topbar, routing, theme)
+- Phase 2: Mock data layer + state management + Overview page (KPI cards)
+- Phase 3: Core charts (time series, bar, donut, heatmap) + global filters
+- Phase 4: Models registry table + model detail drill-down
+- Phase 5: Alerts/incidents + alert rules builder
+- Phase 6: Logs explorer + live monitoring
+- Phase 7: Cost analytics + model comparison
+- Phase 8: Command palette, saved views, export, notifications, settings
+- Phase 9: Polish (animations, a11y, performance, responsive QA, tests, README)
+
+## Step 2: Tech stack (latest STABLE versions only)
+Verify versions with `npm view <pkg> version`, check compatibility with React/Vite, no beta/rc. Recommended (challenge or justify changes in the plan):
+- Tailwind CSS (current stable setup for Vite), React Router (current stable, data router API).
+- State: Redux Toolkit + RTK Query (mock API layer with latency, caching, loading and error states).
+- Charts: Apache ECharts (via echarts-for-react or a thin custom wrapper) for line, bar, donut/pie, heatmap, brush/zoom, sparklines. Explain if you prefer another library.
+- Tables: TanStack Table (+ TanStack Virtual for large logs).
+- Animation: Framer Motion (package name per current stable, e.g., `motion`).
+- UI primitives: Radix UI (dialogs, drawers, tooltips, dropdowns, tabs), `cmdk` for the command palette, a toast library, lucide-react icons.
+- Forms/validation: react-hook-form + zod. Dates: date-fns.
+- Mock data: deterministic seeded generators (e.g., faker with a fixed seed) producing realistic time series for 12+ models, stored as generated JSON/TS files or generated at startup. Optionally evaluate MSW for a realistic network layer and give a recommendation.
+Do not add unnecessary packages.
+
+## Step 3: Project structure
+Feature-based, clear and maintainable, for example:
+src/
+  app/ (store, router, providers, layouts)
+  features/ (overview, models, model-detail, drift, alerts, alert-rules, logs, live, cost, comparison, settings, notifications)
+  components/ (ui primitives, charts wrappers, table kit, layout pieces)
+  hooks/, lib/, services/ (mockApi), data/ (seeded generators/fixtures), types/, styles/
+Each feature owns its slice/API, components and tests. Path aliases, consistent naming, short README with architecture notes.
+
+## Step 4: Dashboard features (aim for 12-15; ship all of these across phases)
+1. App shell: collapsible sidebar, topbar with search, breadcrumbs, user menu, responsive navigation (mobile drawer), light/dark theme toggle (system detection, persisted, no flash).
+2. Overview: KPI cards (requests, success rate, p95 latency, error rate, cost, active models) with sparklines, deltas vs previous period, and animated counters.
+3. Performance time-series: accuracy/latency/throughput charts with date-range selector, compare-to-previous-period, zoom/brush, anomaly highlighting.
+4. Models registry: data table with sorting, multi-filter, search, pagination, column visibility, row selection, status badges, density toggle.
+5. Model detail (drill-down): tabs (Overview, Metrics, Versions, Drift, Incidents), deep-linkable via URL.
+6. Data drift monitoring: heatmap (features x time), distribution comparison chart, drift score ranking.
+7. Latency and error analytics: percentile chart (p50/p95/p99), error breakdown donut/bar by type, top failing endpoints.
+8. Alerts & incidents center: severity/status filters, incident timeline, acknowledge/resolve actions with optimistic updates.
+9. Alert rules builder: validated form (metric, condition, threshold, window, channel) with a live preview chart of when the rule would have fired.
+10. Request logs explorer: virtualized table, full-text search, filters, JSON viewer, detail side drawer, copy/export.
+11. Cost & usage analytics: tokens and cost by model/team, budget progress with forecast, stacked bar and area charts.
+12. Model comparison: select 2-4 models/versions and compare metrics side by side (overlay charts + comparison table with best/worst highlighting).
+13. Live monitoring: simulated real-time streaming metrics (rolling chart, pause/resume, live event feed).
+14. Global filters and saved views: environment, time range, model, team; state synced to URL (shareable links); saved views; export to CSV/PNG.
+15. Command palette (Ctrl/Cmd+K), notifications center, keyboard shortcuts, settings/profile page, onboarding tour.
+Also recommend any additional features you think add real showcase value, but keep the scope realistic.
+
+## Step 5: UX, UI and design (highest priority)
+- Define a design system first: color tokens (including semantic severity/status colors), typography scale (tabular numerals for metrics), spacing, radius, elevation, motion rules, and component states.
+- Data-dense but clean and professional layout; consistent card and chart styling; charts fully themed for both light and dark mode.
+- Every screen has designed loading (skeletons), empty, error (with retry) and success states. Include a toggle in settings to simulate slow network and API errors to demo these states.
+- Animation with Framer Motion: page and panel transitions, chart entrance, list reordering, drawer and dialog motion; respect `prefers-reduced-motion`.
+- Responsive from mobile to ultrawide (collapse sidebar, stack cards, horizontally scrollable tables with sticky columns).
+- Accessibility: keyboard navigation, focus management in drawers/dialogs, ARIA labels, WCAG AA contrast, and an accessible data-table alternative or summary for charts.
+- Performance: route-level code splitting, memoized chart options, virtualization for large lists, debounced search, avoid unnecessary re-renders.
+
+## Step 6: Quality
+- ESLint + Prettier, strict TypeScript, no `any` shortcuts.
+- Unit tests for core logic (filters, aggregations, alert rule evaluation, selectors) and a short manual QA checklist per phase.
+- Final README with architecture overview, feature list, screenshots placeholders, and how to run locally.
+
+## Expected output (planning step)
+1. Summary of the current repo state.
+2. Proposed dependency list with verified stable versions and the reason for each.
+3. Proposed folder structure.
+4. Phased plan written to PHASE.md with acceptance criteria per phase.
+5. Your recommendations to improve the concept, and open questions for me to confirm before building.
