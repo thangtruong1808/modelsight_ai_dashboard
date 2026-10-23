@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -169,4 +169,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
-

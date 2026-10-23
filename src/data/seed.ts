@@ -8,7 +8,7 @@ import type {
   ErrorBreakdownItem,
   GlobalFilterState,
   IncidentEntity,
-  interfaceKpiMetricCardData,
+  KpiMetricCardData,
   ModelCategory,
   ModelEntity,
   ModelHealthStatus,
@@ -523,8 +523,7 @@ export function getSeedDatabase(): SeedDatabase {
 
     const avgErrorRecent =
       recent7.reduce((acc, p) => acc + p.errorRate, 0) / Math.max(1, recent7.length);
-    const avgErrorPrev =
-      prev7.reduce((acc, p) => acc + p.errorRate, 0) / Math.max(1, prev7.length);
+    const avgErrorPrev = prev7.reduce((acc, p) => acc + p.errorRate, 0) / Math.max(1, prev7.length);
     const errorRateDeltaPct = Number(
       (((avgErrorRecent - avgErrorPrev) / Math.max(0.01, avgErrorPrev)) * 100).toFixed(1)
     );
@@ -537,10 +536,8 @@ export function getSeedDatabase(): SeedDatabase {
       (((avgLatencyRecent - avgLatencyPrev) / Math.max(1, avgLatencyPrev)) * 100).toFixed(1)
     );
 
-    const inputTokens24h =
-      bp.category === 'LLM' ? requests24h * 520 : requests24h * 38;
-    const outputTokens24h =
-      bp.category === 'LLM' ? requests24h * 240 : requests24h * 12;
+    const inputTokens24h = bp.category === 'LLM' ? requests24h * 520 : requests24h * 38;
+    const outputTokens24h = bp.category === 'LLM' ? requests24h * 240 : requests24h * 12;
     const cachedTokens24h = Math.round(inputTokens24h * 0.34);
 
     return {
@@ -573,7 +570,10 @@ export function getSeedDatabase(): SeedDatabase {
       driftPsi: lastPoint.driftPsi,
       cost24hUsd: lastPoint.costUsd,
       costDeltaPct: Number(
-        (((lastPoint.costUsd - lastPoint.prevCostUsd) / Math.max(1, lastPoint.prevCostUsd)) * 100).toFixed(1)
+        (
+          ((lastPoint.costUsd - lastPoint.prevCostUsd) / Math.max(1, lastPoint.prevCostUsd)) *
+          100
+        ).toFixed(1)
       ),
       inputTokens24h,
       outputTokens24h,
@@ -795,7 +795,9 @@ export function getSeedDatabase(): SeedDatabase {
       status: 'critical',
       baselineMean: '2.14 tx/15m',
       productionMean: '4.85 tx/15m',
-      hourlyPsi: [0.09, 0.1, 0.11, 0.12, 0.14, 0.16, 0.19, 0.22, 0.25, 0.28, 0.31, 0.33, 0.34, 0.342],
+      hourlyPsi: [
+        0.09, 0.1, 0.11, 0.12, 0.14, 0.16, 0.19, 0.22, 0.25, 0.28, 0.31, 0.33, 0.34, 0.342,
+      ],
       baselineDistribution: [32, 26, 18, 11, 6, 3, 2, 1, 0.6, 0.4],
       productionDistribution: [14, 17, 19, 16, 12, 9, 6, 4, 2, 1],
       distributionBins: ['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-8', '8-10', '10-15', '15+'],
@@ -808,7 +810,9 @@ export function getSeedDatabase(): SeedDatabase {
       status: 'degraded',
       baselineMean: '1,840 tokens',
       productionMean: '2,910 tokens',
-      hourlyPsi: [0.08, 0.09, 0.1, 0.12, 0.13, 0.15, 0.16, 0.18, 0.19, 0.21, 0.22, 0.23, 0.24, 0.244],
+      hourlyPsi: [
+        0.08, 0.09, 0.1, 0.12, 0.13, 0.15, 0.16, 0.18, 0.19, 0.21, 0.22, 0.23, 0.24, 0.244,
+      ],
       baselineDistribution: [15, 24, 26, 16, 9, 5, 2.5, 1.5, 0.6, 0.4],
       productionDistribution: [8, 14, 20, 21, 15, 10, 6, 3.5, 1.5, 1],
       distributionBins: ['<512', '1k', '2k', '3k', '4k', '6k', '8k', '12k', '16k', '32k+'],
@@ -987,9 +991,7 @@ export function buildOverviewDashboardPayload(
     aggregatedSeries.reduce((acc, p) => acc + p.prevLatencyP95, 0) /
       Math.max(1, aggregatedSeries.length)
   );
-  const latencyDelta = Number(
-    (((avgP95 - avgPrevP95) / Math.max(1, avgPrevP95)) * 100).toFixed(1)
-  );
+  const latencyDelta = Number((((avgP95 - avgPrevP95) / Math.max(1, avgPrevP95)) * 100).toFixed(1));
 
   const avgError =
     aggregatedSeries.reduce((acc, p) => acc + p.errorRate, 0) /
@@ -1001,9 +1003,7 @@ export function buildOverviewDashboardPayload(
     (((avgError - avgPrevError) / Math.max(0.01, avgPrevError)) * 100).toFixed(1)
   );
 
-  const totalCost = Number(
-    aggregatedSeries.reduce((acc, p) => acc + p.costUsd, 0).toFixed(2)
-  );
+  const totalCost = Number(aggregatedSeries.reduce((acc, p) => acc + p.costUsd, 0).toFixed(2));
   const totalPrevCost = Number(
     aggregatedSeries.reduce((acc, p) => acc + p.prevCostUsd, 0).toFixed(2)
   );
@@ -1015,7 +1015,7 @@ export function buildOverviewDashboardPayload(
   const degradedCount = activeList.filter((m) => m.status === 'degraded').length;
   const criticalCount = activeList.filter((m) => m.status === 'critical').length;
 
-  const kpis: interfaceKpiMetricCardData[] = [
+  const kpis: KpiMetricCardData[] = [
     {
       id: 'requests',
       label: 'Total Inference Requests',
@@ -1102,4 +1102,3 @@ export function buildOverviewDashboardPayload(
     lastUpdatedIso: formatISO(SEED_ANCHOR_DATE),
   };
 }
-

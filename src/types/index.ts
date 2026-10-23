@@ -8,11 +8,7 @@ export type ModelHealthStatus = 'healthy' | 'degraded' | 'critical';
 export type SeverityLevel = 'critical' | 'warning' | 'info' | 'healthy';
 export type ModelCategory = 'LLM' | 'Classification' | 'Ranking' | 'Embedding' | 'Vision';
 export type EngineeringTeam =
-  | 'Core AI'
-  | 'Customer Experience'
-  | 'Risk & Fraud'
-  | 'Search & Growth'
-  | 'Platform Infra';
+  'Core AI' | 'Customer Experience' | 'Risk & Fraud' | 'Search & Growth' | 'Platform Infra';
 
 export interface NetworkSimulatorState {
   latencyMs: number;
@@ -164,14 +160,8 @@ export interface AlertRuleEntity {
   lastTriggeredAt?: string;
 }
 
-export interfaceKpiMetricCardData {
-  id:
-    | 'requests'
-    | 'successRate'
-    | 'latencyP95'
-    | 'errorRate'
-    | 'totalCost'
-    | 'activeModels';
+export interface KpiMetricCardData {
+  id: 'requests' | 'successRate' | 'latencyP95' | 'errorRate' | 'totalCost' | 'activeModels';
   label: string;
   rawValue: number;
   previousValue: number;
@@ -193,7 +183,7 @@ export interface ErrorBreakdownItem {
 }
 
 export interface OverviewDashboardPayload {
-  kpis: interfaceKpiMetricCardData[];
+  kpis: KpiMetricCardData[];
   aggregatedSeries: TimeSeriesPoint[];
   topModels: ModelEntity[];
   activeIncidents: IncidentEntity[];

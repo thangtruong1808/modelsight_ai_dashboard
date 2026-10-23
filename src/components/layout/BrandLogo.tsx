@@ -32,9 +32,7 @@ export function BrandLogo({ collapsed = false, className }: BrandLogoProps) {
       {!collapsed && (
         <div className="flex flex-col leading-none overflow-hidden">
           <div className="flex items-center gap-1.5">
-            <span className="text-sm font-bold tracking-tight text-text-primary">
-              ModelSight
-            </span>
+            <span className="text-sm font-bold tracking-tight text-text-primary">ModelSight</span>
             <span className="rounded bg-accent-primary/15 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-accent-primary">
               AI
             </span>
@@ -47,4 +45,3 @@ export function BrandLogo({ collapsed = false, className }: BrandLogoProps) {
     </div>
   );
 }
-

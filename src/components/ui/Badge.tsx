@@ -2,13 +2,7 @@ import type { HTMLAttributes } from 'react';
 import { cn } from '@/lib/cn';
 
 export type BadgeVariant =
-  | 'default'
-  | 'healthy'
-  | 'warning'
-  | 'critical'
-  | 'info'
-  | 'indigo'
-  | 'outline';
+  'default' | 'healthy' | 'warning' | 'degraded' | 'critical' | 'info' | 'indigo' | 'outline';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant;
@@ -19,6 +13,7 @@ const badgeStyles: Record<BadgeVariant, string> = {
   default: 'bg-bg-elevated text-text-secondary border-border-default',
   healthy: 'bg-status-healthy-bg text-status-healthy border-status-healthy/25',
   warning: 'bg-status-warning-bg text-status-warning border-status-warning/25',
+  degraded: 'bg-status-warning-bg text-status-warning border-status-warning/25',
   critical: 'bg-status-critical-bg text-status-critical border-status-critical/25',
   info: 'bg-status-info-bg text-status-info border-status-info/25',
   indigo: 'bg-accent-primary/12 text-accent-primary border-accent-primary/25',
@@ -29,6 +24,7 @@ const dotColors: Record<BadgeVariant, string> = {
   default: 'bg-text-muted',
   healthy: 'bg-status-healthy',
   warning: 'bg-status-warning',
+  degraded: 'bg-status-warning',
   critical: 'bg-status-critical',
   info: 'bg-status-info',
   indigo: 'bg-accent-primary',
@@ -61,4 +57,3 @@ export function Badge({
     </span>
   );
 }
-

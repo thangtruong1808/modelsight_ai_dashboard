@@ -28,10 +28,7 @@ interface StoreSimulatorRoot {
   };
 }
 
-const mockBaseQuery: BaseQueryFn<MockRequestArgs, unknown, MockApiError> = async (
-  args,
-  api
-) => {
+const mockBaseQuery: BaseQueryFn<MockRequestArgs, unknown, MockApiError> = async (args, api) => {
   const state = api.getState() as StoreSimulatorRoot;
   const { latencyMs, errorRatePercent, forceOfflineError } = state.ui.simulator;
 
@@ -113,9 +110,5 @@ export const baseApi = createApi({
   }),
 });
 
-export const {
-  useGetOverviewDashboardQuery,
-  useGetModelsListQuery,
-  useGetIncidentsListQuery,
-} = baseApi;
-
+export const { useGetOverviewDashboardQuery, useGetModelsListQuery, useGetIncidentsListQuery } =
+  baseApi;

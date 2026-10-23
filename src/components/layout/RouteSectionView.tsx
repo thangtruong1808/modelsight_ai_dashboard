@@ -17,7 +17,12 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { EmptyState, ErrorState } from '@/components/ui/FeedbackStates';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { formatCompactNumber, formatCurrency, formatLatency, formatPercent } from '@/lib/formatters';
+import {
+  formatCompactNumber,
+  formatCurrency,
+  formatLatency,
+  formatPercent,
+} from '@/lib/formatters';
 
 interface RouteSectionViewProps {
   phaseNumber: number;
@@ -146,11 +151,7 @@ export function RouteSectionView({
             </button>
           </div>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => dispatch(setForceOfflineError(true))}
-          >
+          <Button variant="outline" size="sm" onClick={() => dispatch(setForceOfflineError(true))}>
             Simulate Error
           </Button>
         </div>
@@ -321,4 +322,3 @@ export function RouteSectionView({
     </div>
   );
 }
-

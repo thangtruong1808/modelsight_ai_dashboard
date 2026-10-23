@@ -10,11 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { cn } from '@/lib/cn';
 
-const SECTIONS: Array<NavItemConfig['section']> = [
-  'Observability',
-  'Operations',
-  'Governance',
-];
+const SECTIONS: Array<NavItemConfig['section']> = ['Observability', 'Operations', 'Governance'];
 
 function isNavItemActive(pathname: string, itemPath: string): boolean {
   if (itemPath === '/') {
@@ -36,7 +32,10 @@ function SidebarNavList({
   const { pathname } = useLocation();
 
   return (
-    <nav aria-label="Primary dashboard navigation" className="flex-1 space-y-5 overflow-y-auto px-3 py-4">
+    <nav
+      aria-label="Primary dashboard navigation"
+      className="flex-1 space-y-5 overflow-y-auto px-3 py-4"
+    >
       {SECTIONS.map((section) => {
         const items = NAV_ITEMS.filter((item) => item.section === section);
         return (
@@ -175,7 +174,9 @@ export function Sidebar() {
             </div>
           )}
 
-          <div className={cn('flex items-center', collapsed ? 'justify-center' : 'justify-between')}>
+          <div
+            className={cn('flex items-center', collapsed ? 'justify-center' : 'justify-between')}
+          >
             {!collapsed && (
               <span className="text-[11px] text-text-muted font-mono">v2.6.0-prod</span>
             )}
@@ -233,4 +234,3 @@ export function Sidebar() {
     </>
   );
 }
-

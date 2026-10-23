@@ -117,7 +117,8 @@ export const NAV_ITEMS: NavItemConfig[] = [
 export const ROUTE_TITLES: Record<string, { title: string; subtitle: string; section: string }> = {
   '/': {
     title: 'Production Intelligence Overview',
-    subtitle: 'Real-time health, latency, throughput, and quality telemetry across 14 deployed models',
+    subtitle:
+      'Real-time health, latency, throughput, and quality telemetry across 14 deployed models',
     section: 'Observability',
   },
   '/models': {
@@ -137,7 +138,8 @@ export const ROUTE_TITLES: Record<string, { title: string; subtitle: string; sec
   },
   '/alerts': {
     title: 'Alerts & Incidents Center',
-    subtitle: 'Triage SLA breaches, drift anomalies, and guardrail violations with incident timelines',
+    subtitle:
+      'Triage SLA breaches, drift anomalies, and guardrail violations with incident timelines',
     section: 'Operations',
   },
   '/alerts/rules': {
@@ -147,7 +149,8 @@ export const ROUTE_TITLES: Record<string, { title: string; subtitle: string; sec
   },
   '/logs': {
     title: 'Request Logs Explorer',
-    subtitle: 'High-speed virtualized inspection of inference traces, prompts, completions, and token payloads',
+    subtitle:
+      'High-speed virtualized inspection of inference traces, prompts, completions, and token payloads',
     section: 'Operations',
   },
   '/live': {
@@ -157,15 +160,16 @@ export const ROUTE_TITLES: Record<string, { title: string; subtitle: string; sec
   },
   '/cost': {
     title: 'Cost & Usage Analytics',
-    subtitle: 'Token consumption, team attribution, monthly budget burn-up forecast, and routing optimizations',
+    subtitle:
+      'Token consumption, team attribution, monthly budget burn-up forecast, and routing optimizations',
     section: 'Governance',
   },
   '/settings': {
     title: 'Workspace Settings & Chaos Simulator',
-    subtitle: 'Configure preferences, saved views, and inject network latency or errors to test UI resilience',
+    subtitle:
+      'Configure preferences, saved views, and inject network latency or errors to test UI resilience',
     section: 'Governance',
   },
 };
 
 export { BarChart3 };
-

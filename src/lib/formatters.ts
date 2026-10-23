@@ -34,4 +34,3 @@ export function formatCurrency(usd: number, decimals = 2): string {
     maximumFractionDigits: decimals,
   }).format(usd);
 }
-

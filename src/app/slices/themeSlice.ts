@@ -72,4 +72,3 @@ const themeSlice = createSlice({
 
 export const { setThemeMode, syncSystemTheme } = themeSlice.actions;
 export default themeSlice.reducer;
-

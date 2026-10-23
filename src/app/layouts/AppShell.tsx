@@ -1,6 +1,7 @@
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { motion, useReducedMotion } from 'motion/react';
+import { GlobalFilterBar } from '@/app/layouts/GlobalFilterBar';
 import { Sidebar } from '@/app/layouts/Sidebar';
 import { Topbar } from '@/app/layouts/Topbar';
 import { setCommandPaletteOpen, toggleSidebar } from '@/app/slices/uiSlice';
@@ -81,6 +82,7 @@ export function AppShell() {
               transition={{ duration: 0.18, ease: 'easeOut' }}
               className="mx-auto w-full max-w-[1680px] p-4 sm:p-6"
             >
+              <GlobalFilterBar />
               <Outlet />
             </motion.div>
           </Suspense>
@@ -89,4 +91,3 @@ export function AppShell() {
     </div>
   );
 }
-
