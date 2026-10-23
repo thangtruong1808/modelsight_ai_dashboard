@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================================
+   ModelSight AI — Design System Tokens (Light & Dark Mode)
+   High-contrast technical observability palette inspired by Linear & Datadog
+   ============================================================================ */
+
+:root {
+  /* Surface & Canvas */
+  --bg-canvas: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --bg-subtle: #e2e8f0;
+  --bg-glass: rgba(255, 255, 255, 0.84);
+
+  /* Typography */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Borders & Dividers */
+  --border-default: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --border-strong: #cbd5e1;
+
+  /* Brand Accents */
+  --accent-primary: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-cyan: #0891b2;
+  --accent-violet: #7c3aed;
+
+  /* Semantic Status / Severity */
+  --status-healthy: #059669;
+  --status-healthy-bg: rgba(16, 185, 129, 0.12);
+  --status-warning: #d97706;
+  --status-warning-bg: rgba(245, 158, 11, 0.12);
+  --status-critical: #e11d48;
+  --status-critical-bg: rgba(244, 63, 94, 0.12);
+  --status-info: #0284c7;
+  --status-info-bg: rgba(14, 165, 233, 0.12);
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px 0 rgba(15, 23, 42, 0.04), 0 1px 3px 0 rgba(15, 23, 42, 0.06);
+  --shadow-float: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+  /* Surface & Canvas */
+  --bg-canvas: #090d16;
+  --bg-surface: #0f1623;
+  --bg-elevated: #161f30;
+  --bg-subtle: #1e293b;
+  --bg-glass: rgba(15, 22, 35, 0.85);
+
+  /* Typography */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #090d16;
+
+  /* Borders & Dividers */
+  --border-default: #1e293b;
+  --border-subtle: #151e2e;
+  --border-strong: #334155;
+
+  /* Brand Accents */
+  --accent-primary: #6366f1;
+  --accent-hover: #818cf8;
+  --accent-cyan: #06b6d4;
+  --accent-violet: #8b5cf6;
+
+  /* Semantic Status / Severity */
+  --status-healthy: #10b981;
+  --status-healthy-bg: rgba(16, 185, 129, 0.14);
+  --status-warning: #f59e0b;
+  --status-warning-bg: rgba(245, 158, 11, 0.14);
+  --status-critical: #f43f5e;
+  --status-critical-bg: rgba(244, 63, 94, 0.14);
+  --status-info: #38bdf8;
+  --status-info-bg: rgba(56, 189, 248, 0.14);
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px 0 rgba(0, 0, 0, 0.35), 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+  --shadow-float: 0 14px 30px -5px rgba(0, 0, 0, 0.55), 0 8px 12px -6px rgba(0, 0, 0, 0.4);
+}
+
+@theme inline {
+  --color-bg-canvas: var(--bg-canvas);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-glass: var(--bg-glass);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-border-default: var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-violet: var(--accent-violet);
+
+  --color-status-healthy: var(--status-healthy);
+  --color-status-healthy-bg: var(--status-healthy-bg);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-bg: var(--status-warning-bg);
+  --color-status-critical: var(--status-critical);
+  --color-status-critical-bg: var(--status-critical-bg);
+  --color-status-info: var(--status-info);
+  --color-status-info-bg: var(--status-info-bg);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-float: var(--shadow-float);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Base resets & utility classes */
+@layer base {
+  * {
+    border-color: var(--border-default);
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+}
+
+/* Mandatory tabular numerals for all metrics, tables, counters, and timestamps */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle custom scrollbars for data-dense tables and logs */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+

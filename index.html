@@ -1,12 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>modelsight_ai_dashboard</title>
+    <title>ModelSight AI — Production Model & LLM Observability</title>
+    <script>
+      (function () {
+        try {
+          var storageKey = 'modelsight_theme';
+          var stored = localStorage.getItem(storageKey);
+          var mode = stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'dark';
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var resolved = mode === 'system' ? (prefersDark ? 'dark' : 'light') : mode;
+          var root = document.documentElement;
+          root.classList.remove('light', 'dark');
+          root.classList.add(resolved);
+          root.style.colorScheme = resolved;
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
-  <body>
+  <body class="bg-bg-canvas text-text-primary antialiased selection:bg-accent-primary/20 selection:text-accent-primary">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
