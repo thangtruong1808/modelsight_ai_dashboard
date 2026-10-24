@@ -56,4 +56,3 @@ describe('Alert Rules & Historical Evaluation Engine', () => {
     expect(zeroResult.firingZones.length).toBe(0);
   });
 });
-

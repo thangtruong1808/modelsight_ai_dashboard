@@ -191,3 +191,53 @@ export interface OverviewDashboardPayload {
   filterEcho: GlobalFilterState;
   lastUpdatedIso: string;
 }
+
+export interface LogEntry {
+  id: string;
+  traceId: string;
+  timestamp: string;
+  modelId: string;
+  modelName: string;
+  environment: EnvironmentType;
+  statusCode: number;
+  latencyMs: number;
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  costUsd: number;
+  userHash: string;
+  promptSnippet: string;
+  completionSnippet: string;
+  fullPrompt: string;
+  fullCompletion: string;
+  requestPayload: Record<string, unknown>;
+  responsePayload: Record<string, unknown>;
+  metadata: {
+    clientSdk: string;
+    ipCountry: string;
+    cached: boolean;
+    vectorDistance?: number;
+    guardrailScore?: number;
+    finishReason?: 'stop' | 'length' | 'tool_call' | 'guardrail_block';
+  };
+}
+
+export interface LiveTelemetryTick {
+  timestamp: number;
+  timeLabel: string;
+  rps: number;
+  latencyP50: number;
+  latencyP95: number;
+  errorRatePct: number;
+  activeTokensSec: number;
+}
+
+export interface LiveAnomalyEvent {
+  id: string;
+  timestamp: string;
+  type: 'latency_spike' | 'error_burst' | 'drift_detected' | 'rate_limit' | 'guardrail_flag';
+  severity: 'critical' | 'warning' | 'info';
+  modelName: string;
+  message: string;
+  value: string;
+}

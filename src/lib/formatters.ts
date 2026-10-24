@@ -26,6 +26,10 @@ export function formatPercent(value: number, decimals = 2): string {
   return `${value.toFixed(decimals)}%`;
 }
 
+export function formatNumber(value: number): string {
+  return new Intl.NumberFormat('en-US').format(value);
+}
+
 export function formatCurrency(usd: number, decimals = 2): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',

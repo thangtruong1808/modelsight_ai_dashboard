@@ -1,10 +1,12 @@
 import { createApi, type BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import { buildOverviewDashboardPayload, getSeedDatabase } from '@/data/seed';
+import { getDeterministicLogs } from '@/data/seedLogs';
 import type {
   AlertRuleEntity,
   DriftFeatureMetric,
   GlobalFilterState,
   IncidentEntity,
+  LogEntry,
   ModelEntity,
   OverviewDashboardPayload,
 } from '@/types';
@@ -27,7 +29,8 @@ type MockRequestArgs =
   | { url: 'alert-rules'; params?: undefined; method?: 'GET' }
   | { url: 'alert-rule-create'; method: 'POST'; body: Omit<AlertRuleEntity, 'id'> }
   | { url: 'alert-rule-toggle'; method: 'POST'; body: { ruleId: string; enabled: boolean } }
-  | { url: 'alert-rule-delete'; method: 'POST'; body: { ruleId: string } };
+  | { url: 'alert-rule-delete'; method: 'POST'; body: { ruleId: string } }
+  | { url: 'logs'; params?: undefined; method?: 'GET' };
 
 interface StoreSimulatorRoot {
   ui: {
@@ -161,6 +164,8 @@ const mockBaseQuery: BaseQueryFn<MockRequestArgs, unknown, MockApiError> = async
       }
       return { data: { success: true, ruleId: args.body.ruleId } };
     }
+    case 'logs':
+      return { data: getDeterministicLogs(10000) };
     default:
       return {
         error: {
@@ -175,8 +180,12 @@ const mockBaseQuery: BaseQueryFn<MockRequestArgs, unknown, MockApiError> = async
 export const baseApi = createApi({
   reducerPath: 'modelsightApi',
   baseQuery: mockBaseQuery,
-  tagTypes: ['Overview', 'Models', 'Drift', 'Incidents', 'AlertRules'],
+  tagTypes: ['Overview', 'Models', 'Drift', 'Incidents', 'AlertRules', 'Logs'],
   endpoints: (builder) => ({
+    getLogs: builder.query<LogEntry[], void>({
+      query: () => ({ url: 'logs' }),
+      providesTags: ['Logs'],
+    }),
     getOverviewDashboard: builder.query<OverviewDashboardPayload, GlobalFilterState>({
       query: (filters) => ({
         url: 'overview',
@@ -353,4 +362,5 @@ export const {
   useCreateAlertRuleMutation,
   useToggleAlertRuleMutation,
   useDeleteAlertRuleMutation,
+  useGetLogsQuery,
 } = baseApi;
