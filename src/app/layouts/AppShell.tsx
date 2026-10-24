@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { motion, useReducedMotion } from 'motion/react';
 import { GlobalFilterBar } from '@/app/layouts/GlobalFilterBar';
@@ -6,6 +6,9 @@ import { Sidebar } from '@/app/layouts/Sidebar';
 import { Topbar } from '@/app/layouts/Topbar';
 import { setCommandPaletteOpen, toggleSidebar } from '@/app/slices/uiSlice';
 import { useAppDispatch } from '@/app/store';
+import { CommandPalette } from '@/components/layout/CommandPalette';
+import { KeyboardShortcutsModal } from '@/components/layout/KeyboardShortcutsModal';
+import { NotificationsDrawer } from '@/components/layout/NotificationsDrawer';
 import { Skeleton } from '@/components/ui/Skeleton';
 
 function RouteLoadingFallback() {
@@ -32,6 +35,7 @@ export function AppShell() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -51,6 +55,12 @@ export function AppShell() {
       if (!isEditable && !event.metaKey && !event.ctrlKey && event.key === '[') {
         event.preventDefault();
         dispatch(toggleSidebar());
+        return;
+      }
+
+      if (!isEditable && !event.metaKey && !event.ctrlKey && event.key === '?') {
+        event.preventDefault();
+        setIsShortcutsOpen(true);
       }
     };
 
@@ -88,6 +98,11 @@ export function AppShell() {
           </Suspense>
         </main>
       </div>
+
+      {/* Global Interactive Overlays */}
+      <CommandPalette />
+      <NotificationsDrawer />
+      <KeyboardShortcutsModal isOpen={isShortcutsOpen} onClose={() => setIsShortcutsOpen(false)} />
     </div>
   );
 }

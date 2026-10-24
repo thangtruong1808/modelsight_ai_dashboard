@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { computeLogsHourlyHistogram, getDeterministicLogs } from '@/data/seedLogs';
+import { formatLogsAsCsvString } from '@/lib/exportUtils';
 
 describe('Phase 6: Request Logs Engine & Virtualization Data Layer', () => {
   it('generates 10,000 deterministic logs with realistic LLM payloads and valid schemas', () => {
@@ -85,5 +86,15 @@ describe('Phase 6: Request Logs Engine & Virtualization Data Layer', () => {
     const partialTrace = target.traceId.slice(3, 8).toLowerCase();
     const matchTrace = logs.filter((l) => l.traceId.toLowerCase().includes(partialTrace));
     expect(matchTrace.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('formats logs to clean RFC-4180 CSV with escaped strings and headers', () => {
+    const logs = getDeterministicLogs(10);
+    const csv = formatLogsAsCsvString(logs);
+
+    expect(csv).toContain('Request ID,Timestamp,Model,Environment,Status Code');
+    const lines = csv.split('\r\n');
+    expect(lines).toHaveLength(11); // Header + 10 rows
+    expect(lines[1]).toContain(logs[0]!.id);
   });
 });

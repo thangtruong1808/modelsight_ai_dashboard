@@ -16,9 +16,9 @@ export function downloadFile(content: string, filename: string, mimeType: string
 }
 
 /**
- * Format an array of LogEntry objects into clean RFC-4180 CSV
+ * Format an array of LogEntry objects into clean RFC-4180 CSV string
  */
-export function exportLogsToCsv(logs: readonly LogEntry[]): void {
+export function formatLogsAsCsvString(logs: readonly LogEntry[]): string {
   const headers = [
     'Request ID',
     'Timestamp',
@@ -57,7 +57,14 @@ export function exportLogsToCsv(logs: readonly LogEntry[]): void {
     escapeCsv(log.promptSnippet),
   ]);
 
-  const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
+  return [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
+}
+
+/**
+ * Format an array of LogEntry objects into clean RFC-4180 CSV and trigger browser download
+ */
+export function exportLogsToCsv(logs: readonly LogEntry[]): void {
+  const csvContent = formatLogsAsCsvString(logs);
   const filename = `modelsight-request-logs-${new Date().toISOString().slice(0, 10)}.csv`;
   downloadFile(csvContent, filename, 'text/csv;charset=utf-8;');
 }

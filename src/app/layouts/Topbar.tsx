@@ -120,13 +120,7 @@ export function Topbar() {
         <Button
           variant="secondary"
           size="sm"
-          onClick={() => {
-            dispatch(setCommandPaletteOpen(true));
-            toast.info('Command Palette', {
-              description:
-                'Full fuzzy search & command palette (Cmd/Ctrl+K) unlocks in Phase 8. Try navigating via the sidebar or testing the Chaos Simulator!',
-            });
-          }}
+          onClick={() => dispatch(setCommandPaletteOpen(true))}
           className="h-8 gap-3 px-2.5 text-text-secondary hover:text-text-primary"
           aria-label="Open command palette (Cmd+K)"
         >
@@ -266,17 +260,13 @@ export function Topbar() {
         </RadixPopover.Root>
 
         {/* Notifications Trigger */}
-        <Tooltip content="Notifications (3 unread incidents)">
+        <Tooltip content="Notifications Center">
           <Button
             variant="ghost"
             size="icon"
             className="relative"
             aria-label="Open notifications"
-            onClick={() => {
-              dispatch(setNotificationsOpen(true));
-              navigate('/alerts');
-              toast.info('Navigated to Alerts & Incidents Center');
-            }}
+            onClick={() => dispatch(setNotificationsOpen(true))}
           >
             <Bell className="h-4 w-4" />
             <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-status-critical ring-2 ring-bg-surface" />
